@@ -31,7 +31,7 @@ func (r *ginController) RegisterRouter(router selectedRouter) {
 
 	resource := router.Group("/api/v1", r.authentication())
 	resource.GET("/todo", r.authorization(), r.getAllTodoHandler())
-	resource.POST("/todo/", r.authorization(), r.runTodoCheckHandler())
-	resource.POST("/runtodocreate", r.authorization(), r.runTodoCreateHandler())
+	resource.PUT("/todo/:todoid", r.authorization(), r.runTodoCheckHandler())
+	resource.POST("/todo", r.authorization(), r.runTodoCreateHandler())
 
 }

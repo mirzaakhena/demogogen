@@ -1,4 +1,5 @@
-POST http://localhost:8000/api/v1/runtodocreate
+POST http://localhost:8000/api/v1/todo
 
-{ 
+{
+  "message": "world"
 }

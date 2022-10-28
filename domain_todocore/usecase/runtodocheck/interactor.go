@@ -27,6 +27,11 @@ func (r *runTodoCheckInteractor) Execute(ctx context.Context, req InportRequest)
 		return nil, fmt.Errorf("object not found")
 	}
 
+	err = todoObj.Check()
+	if err != nil {
+		return nil, err
+	}
+
 	err = r.outport.SaveTodo(ctx, todoObj)
 	if err != nil {
 		return nil, err

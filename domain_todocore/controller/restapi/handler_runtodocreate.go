@@ -8,6 +8,7 @@ import (
 	"demogogen1/shared/model/payload"
 	"demogogen1/shared/util"
 	"net/http"
+	"time"
 
 	"github.com/gin-gonic/gin"
 )
@@ -20,6 +21,7 @@ func (r *ginController) runTodoCreateHandler() gin.HandlerFunc {
 	inport := gogen.GetInport[InportRequest, InportResponse](r.GetUsecase(InportRequest{}))
 
 	type request struct {
+		InportRequest
 	}
 
 	type response struct {
@@ -39,6 +41,9 @@ func (r *ginController) runTodoCreateHandler() gin.HandlerFunc {
 		}
 
 		var req InportRequest
+		req.TodoCreateRequest = jsonReq.TodoCreateRequest
+		req.Now = time.Now()
+		req.RandomString = util.GenerateID(20)
 
 		r.log.Info(ctx, util.MustJSON(req))
 

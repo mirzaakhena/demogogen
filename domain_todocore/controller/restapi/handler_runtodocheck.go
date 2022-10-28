@@ -21,7 +21,6 @@ func (r *ginController) runTodoCheckHandler() gin.HandlerFunc {
 	inport := gogen.GetInport[InportRequest, InportResponse](r.GetUsecase(InportRequest{}))
 
 	type request struct {
-		TodoID vo.TodoID `json:"todo_id"`
 	}
 
 	type response struct {
@@ -33,15 +32,15 @@ func (r *ginController) runTodoCheckHandler() gin.HandlerFunc {
 
 		ctx := logger.SetTraceID(context.Background(), traceID)
 
-		var jsonReq request
-		if err := c.BindJSON(&jsonReq); err != nil {
-			r.log.Error(ctx, err.Error())
-			c.JSON(http.StatusBadRequest, payload.NewErrorResponse(err, traceID))
-			return
-		}
+		//var jsonReq request
+		//if err := c.BindJSON(&jsonReq); err != nil {
+		//	r.log.Error(ctx, err.Error())
+		//	c.JSON(http.StatusBadRequest, payload.NewErrorResponse(err, traceID))
+		//	return
+		//}
 
 		var req InportRequest
-		req.TodoID = jsonReq.TodoID
+		req.TodoID = vo.TodoID(c.Param("todoid"))
 
 		r.log.Info(ctx, util.MustJSON(req))
 

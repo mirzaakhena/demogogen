@@ -17,7 +17,6 @@ type TodoCreateRequest struct {
 	RandomString string    `json:"-"`
 	Now          time.Time `json:"-"`
 	Message      string    `json:"message"`
-	Checked      bool      `json:"checked"`
 }
 
 func NewTodo(req TodoCreateRequest) (*Todo, error) {
@@ -27,7 +26,9 @@ func NewTodo(req TodoCreateRequest) (*Todo, error) {
 		return nil, err
 	}
 
-	// add validation and assignment value here ...
+	if req.Message == "" {
+		return nil, errorenum.MessageMustNotEmpty
+	}
 
 	var obj Todo
 	obj.ID = id
@@ -40,7 +41,7 @@ func NewTodo(req TodoCreateRequest) (*Todo, error) {
 
 func (r *Todo) Check() error {
 
-	if r.Checked == true {
+	if r.Checked {
 		return errorenum.TodoAlreadyChecked.Var(r.Message)
 	}
 
