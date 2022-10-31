@@ -67,3 +67,7 @@ func (r *gateway) SaveTodo(ctx context.Context, obj *entity.Todo) error {
 
 	return nil
 }
+
+func Save(database, collection string, ) {
+
+}

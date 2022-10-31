@@ -29,7 +29,11 @@ func (myproduct) Run() error {
 
 	appData := gogen.NewApplicationData(appName)
 
-	log := logger.NewSimpleJSONLogger(appData)
+	//log := logger.NewSimpleJSONLogger(appData)
+
+	log := logger.NewYourLog(appData)
+
+	//log := logger.NewLogrusLog(appData)
 
 	jwtToken := token.NewJWTToken(cfg.JWTSecretKey)
 
